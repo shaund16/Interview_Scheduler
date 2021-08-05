@@ -15,8 +15,10 @@ export default function Application(props) {
     days: [],
     appointments: {},
   });
+
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewDay = getInterviewersForDay(state, state.day);
+
   const setDay = (day) => setState({ ...state, day });
 
   const schedule = appointments.map((appointment) => {
@@ -29,16 +31,63 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewDay}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
 
+  //Book an interview
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+   
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then((response) => {
+      setState({
+        ...state,
+        appointments
+      });
+    })
+    .catch(err => console.log(err))
+  }
+
+  //Delete interview 
+  function cancelInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+   
+    return axios.delete(`/api/appointments/${id}`, appointment)
+    .then((response) => {
+      setState({
+        ...state,
+        appointments
+      });
+    })
+    .catch(err => console.log(err))
+  }
+
+
   useEffect(() => {
     // axios.get("/api/days").then((response) => setDays(response.data))
     Promise.all([
-      axios.get('http://localhost:8001/api/days'),
-      axios.get('http://localhost:8001/api/appointments'),
-      axios.get('http://localhost:8001/api/interviewers'),
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers'),
     ]).then((all) => {
       console.log(all);
       setState((prev) => ({
