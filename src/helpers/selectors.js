@@ -24,16 +24,12 @@ export function getInterview(state, interview) {
 }
 
 export function getInterviewersForDay(state, day) {
-  const filteredInterviewer = [];
-  const todaysAppointments = getAppointmentsForDay(state, day);
-  todaysAppointments.forEach((appointment) => {
-    if (appointment.interview !== null) {
-      const appointmentInterviewerId = appointment.interview.interviewer;
-      filteredInterviewer.push(state.interviewers[appointmentInterviewerId]);
-    }
-    return filteredInterviewer;
-  });
-
-  //get interviewers for the day
-  return filteredInterviewer;
+  // const todaysAppointments = getAppointmentsForDay(state, day);
+  const foundDay = state.days.filter((d) => d.name === day)[0];
+  if (foundDay === undefined) {
+    return [];
+  }
+  return foundDay.interviewers.map((interviewerId) => {
+    return state.interviewers[interviewerId]
+  })
 }
