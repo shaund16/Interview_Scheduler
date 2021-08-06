@@ -47,6 +47,7 @@ export default function useApplicationData(props) {
           ...state,
           appointments,
         });
+        updateSpots(id);
       });
   }
 
@@ -69,8 +70,18 @@ export default function useApplicationData(props) {
           ...state,
           appointments,
         });
+        updateSpots(id);
       });
   }
+
+  const updateSpots = (id) => {
+    axios
+      .get('/api/days')
+      .then((response) => {
+        setState((prev) => ({ ...prev, days: response.data }));
+      })
+      .catch((error) => console.log(error));
+  };
 
   return { state, setDay, bookInterview, cancelInterview };
 }
