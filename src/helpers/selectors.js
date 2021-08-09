@@ -26,7 +26,7 @@ export function getInterview(state, interview) {
 export function getInterviewersForDay(state, day) {
   // const todaysAppointments = getAppointmentsForDay(state, day);
   const foundDay = state.days.filter((d) => d.name === day)[0];
-  if (foundDay === undefined) {
+  if (!foundDay) {
     return [];
   }
   return foundDay.interviewers.map((interviewerId) => {
