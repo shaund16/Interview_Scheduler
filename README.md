@@ -1,23 +1,47 @@
 # Interview Scheduler
+## Description 
+React Application that allows users to book and cancel interviews.
 
-## Setup
+### Languages and Frameworks
 
-Install dependencies with `npm install`.
+Built using JSX, CSS, Javascript, React, Axios, NodeJS, Express
 
-## Running Webpack Development Server
+### Testing
+Storybook, Jest, Cypress
+### Dependencies 
 
-```sh
-npm start
+```
+"axios": "^0.21.1",
+"chalk": "^4.1.0",
+"classnames": "^2.2.6",
+"normalize.css": "^8.0.1",
+"react": "^16.9.0",
+"react-dom": "^16.9.0",
+"react-scripts": "3.0.0"
 ```
 
-## Running Jest Test Framework
+### Final Product
 
-```sh
-npm test
-```
+## Add Appointment
+![](https://github.com/shaund16/Interview_Scheduler/blob/master/img/studentname.png)
 
-## Running Storybook Visual Testbed
+## Input Appointment
+![](https://github.com/shaund16/Interview_Scheduler/blob/master/img/inputstudent.png)
 
-```sh
-npm run storybook
-```
+## Delete Appointment
+![](https://github.com/shaund16/Interview_Scheduler/blob/master/img/goingtodelete.png)
+
+## Mobile
+![](https://github.com/shaund16/Interview_Scheduler/blob/master/img/mobile.png)
+
+## Jest 
+![](https://github.com/shaund16/Interview_Scheduler/blob/master/img/jest_test.png)
+
+## Cypress
+![](https://github.com/shaund16/Interview_Scheduler/blob/master/img/cypress.png)
+
+# Getting Started
+
+1. Install dependencies with ```npm install```
+2. Running Webpack Development Server by ```npm start```
+3. The App will served at http://localhost:8000/
