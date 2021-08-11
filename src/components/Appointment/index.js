@@ -58,7 +58,7 @@ const Appointment = (props) => {
   }
 
   return (
-    <article className='appointment'>
+    <article className='appointment' data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && 
         <Empty 
@@ -82,7 +82,7 @@ const Appointment = (props) => {
       )}
       {mode === CONFIRM && (
         <Confirm 
-        message='Delete the appointment?'
+        message="Are you sure you would like to delete?"
         onConfirm={deleted}
         onCancel={() => transition(SHOW)}
         />
@@ -97,18 +97,18 @@ const Appointment = (props) => {
           onCancel={back}
         />
       )}
-      {mode === SAVING && <Status message={'Saving...'} />}
-      {mode === DELETING && <Status message={'Deleting...'} />}
+      {mode === SAVING && <Status message={'Saving'} />}
+      {mode === DELETING && <Status message={'Deleting'} />}
       
       {mode === ERROR_DELETE && 
       <Error 
-      message={'Error Delete'} 
+      message={'Error Deleting'} 
       onClose={() => {back(); back()}}
       />}
       
       {mode === ERROR_SAVE && 
       <Error 
-      message={'Error Save'} 
+      message={'Error Saving'} 
       onClose={() => {back(); back()}} 
       />}
       

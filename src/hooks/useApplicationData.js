@@ -39,19 +39,28 @@ export default function useApplicationData(props) {
       [id]: appointment,
     };
 
+    const days = state.days.map((day) => {
+      if (day.name === state.day) {
+        return { ...day, spots: updateSpots(state, appointments) };
+      } else {
+        return day;
+      }
+    });
+
     return axios
       .put(`/api/appointments/${id}`, appointment)
       .then((response) => {
         setState({
           ...state,
           appointments,
+          days,
         });
-        updateSpots(id);
+        updateSpots(state, appointments);
       });
   }
 
   //Delete interview
-  function cancelInterview(id, interview) {
+  function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
       interview: null,
@@ -62,24 +71,34 @@ export default function useApplicationData(props) {
       [id]: appointment,
     };
 
-    return axios
-      .delete(`/api/appointments/${id}`, appointment)
-      .then((response) => {
-        setState({
-          ...state,
-          appointments,
-        });
-        updateSpots(id);
+    const days = state.days.map((day) => {
+      if (day.name === state.day) {
+        return { ...day, spots: updateSpots(state, appointments) };
+      } else {
+        return day;
+      }
+    });
+
+    return axios.delete(`/api/appointments/${id}`).then((response) => {
+      setState({
+        ...state,
+        appointments,
+        days,
       });
+      updateSpots(state, appointments);
+    });
   }
 
-  const updateSpots = (id) => {
-    axios
-      .get('/api/days')
-      .then((response) => {
-        setState((prev) => ({ ...prev, days: response.data }));
-      })
-      .catch((error) => console.log(error));
+  const updateSpots = (state, appointments) => {
+    let totalSpots = 0;
+    const foundDay = state.days.filter((d) => d.name === state.day)[0];
+    foundDay.appointments.forEach((appointmentId) => {
+      const appointment = appointments[appointmentId];
+      if (!appointment.interview) {
+        totalSpots++;
+      }
+    });
+    return totalSpots;
   };
 
   return { state, setDay, bookInterview, cancelInterview };
