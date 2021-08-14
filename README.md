@@ -22,6 +22,9 @@ Storybook, Jest, Cypress
 
 ### Final Product
 
+https://user-images.githubusercontent.com/64987681/129452017-5ffc5d22-c4f7-4f3b-912c-c99b78e216f0.mp4
+
+
 ## Add Appointment
 ![](https://github.com/shaund16/Interview_Scheduler/blob/master/img/studentname.png)
 
